@@ -371,3 +371,9 @@ class Inky:
         if isinstance(data, int):
             data = [data]
         self._spi_write(_SPI_DATA, data)
+
+    def __del__(self):
+        """ Clean up the GPIO and SPI chanels when the display is collected."""
+        if self._gpio_setup:
+            GPIO.cleanup()
+            self._spi.close()
